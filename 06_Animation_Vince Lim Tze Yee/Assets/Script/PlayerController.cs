@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Animator PlayerAnimin;
     public Rigidbody playerRb;
     public float speed = 5.0f;
+    public float rotateSpeed;
     float Health = 100.0f;
     float DamageRate = 10.0f;
     bool Death;
@@ -25,31 +26,33 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.W) && Death == false) //go forward and face forward
+        if (Input.GetKey(KeyCode.W) && Death == false || Input.GetKey(KeyCode.UpArrow) && Death == false) //go forward and face forward
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            //transform.rotation = Quaternion.Euler(0, 0, 0);
             PlayerAnimin.SetBool("IsStrafe", true);
         }
-        if (Input.GetKey(KeyCode.S) && Death == false) //go backwards and face backwards
+        if (Input.GetKey(KeyCode.S) && Death == false || Input.GetKey(KeyCode.DownArrow) && Death == false) //go backwards and face backwards
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            transform.Translate(Vector3.forward * speed * -Time.deltaTime);
+            //transform.rotation = Quaternion.Euler(0, 180, 0);
             PlayerAnimin.SetBool("IsStrafe", true);
         }
-        if (Input.GetKey(KeyCode.A) && Death == false) //go left and face left
+        if (Input.GetKey(KeyCode.A) && Death == false || Input.GetKey(KeyCode.RightArrow) && Death == false) //go left and face left
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            transform.rotation = Quaternion.Euler(0, -90, 0);
+            transform.Rotate(new Vector3(0, rotateSpeed * -Time.deltaTime, 0));
+            // transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            //transform.rotation = Quaternion.Euler(0, -90, 0);
             PlayerAnimin.SetBool("IsStrafe", true);
         }
-        if (Input.GetKey(KeyCode.D) && Death == false) //go right and face right
+        if (Input.GetKey(KeyCode.D) && Death == false || Input.GetKey(KeyCode.LeftArrow) && Death == false) //go right and face right
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
+            //transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            //transform.rotation = Quaternion.Euler(0, 90, 0);
             PlayerAnimin.SetBool("IsStrafe", true);
         }
-        if (Input.GetKeyUp(KeyCode.W) && Death == false || Input.GetKeyUp(KeyCode.S) && Death == false || Input.GetKeyUp(KeyCode.A) && Death == false || Input.GetKeyUp(KeyCode.D) && Death == false)
+        if (Input.GetKeyUp(KeyCode.W) && Death == false || Input.GetKeyUp(KeyCode.S) && Death == false || Input.GetKeyUp(KeyCode.A) && Death == false || Input.GetKeyUp(KeyCode.D) && Death == false || Input.GetKeyUp(KeyCode.UpArrow) && Death == false || Input.GetKeyUp(KeyCode.DownArrow) && Death == false || Input.GetKeyUp(KeyCode.RightArrow) && Death == false || Input.GetKeyUp(KeyCode.LeftArrow) && Death == false)
         {
             PlayerAnimin.SetBool("IsStrafe", false);
         }

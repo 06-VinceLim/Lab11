@@ -592,6 +592,7 @@ MonoBehaviour:
   PlayerAnimin: {fileID: 1152270310}
   playerRb: {fileID: 853513113}
   speed: 5
+  rotateSpeed: 50
   HealthText: {fileID: 811010795}
 --- !u!65 &853513109
 BoxCollider:
